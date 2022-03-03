@@ -1,4 +1,4 @@
-function generator(matLen, gr, grEat, pr, fl, allEat) {
+function generator(matLen, gr, grEat, pr, fl, allEat, mush, wall) {
   let matrix = [];
 
   for (let i = 0; i < matLen; i++) {
@@ -44,17 +44,33 @@ function generator(matLen, gr, grEat, pr, fl, allEat) {
       matrix[x][y] = 5;
     }
   }
+  for (let i = 0; i < mush; i++) {
+    let x = Math.floor(Math.random() * matLen);
+    let y = Math.floor(Math.random() * matLen);
+    if (matrix[x][y] == 0) {
+      matrix[x][y] = 6;
+    }
+  }
+  let x = 0
+  let y = Math.floor(Math.random() * matLen); 
+  for (let i = 0; i < wall; i++) {
+    x++    
+    if (matrix[x][y] == 0) {
+      matrix[x][y] = 7;
+    }
+  }
   return matrix;
 }
 
 let side = 20;
 
-let matrix = generator(side, 60, 25, 10, 10, 7);
+let matrix = generator(side, 60, 25, 10, 10, 7, 10, 10);
 let grassArr = []
 let grassEaterArr = []
 let predatorArr = []
 let flowerArr = []
 let allEaterArr = []
+let mushroomArr = []
 
 function setup() {
   createCanvas(matrix[0].length * side, matrix.length * side);
@@ -77,11 +93,13 @@ function setup() {
       } else if (matrix[y][x] == 5) {
         let alE = new AllEater(x, y)
         allEaterArr.push(alE)
+      } else if (matrix[y][x] == 6) {
+        let mush = new Mushroom(x, y)
+        mushroomArr.push(mush)
       }
 
     }
   }
-  //console.log(allEaterArr);
 }
 
 function draw() {
@@ -99,20 +117,24 @@ function draw() {
         fill('orchid')
       } else if (matrix[y][x] == 5) {
         fill('Teal')
+      } else if (matrix[y][x] == 6) {
+        fill('LightSalmon')
+      } else if (matrix[y][x] == 7) {
+        fill('black')
       }
       rect(x * side, y * side, side, side)
     }
   }
 
-  
+
   for (let i in grassArr) {
     grassArr[i].mul()
   }
   for (let i in allEaterArr) {
-  	if(grassArr.length>200){
-    	allEaterArr[i].moveAndEat(side)
+    if (grassArr.length > 200) {
+      allEaterArr[i].moveAndEat(side)
     }
-    
+
   }
   for (let i in predatorArr) {
     predatorArr[i].mul()
@@ -122,7 +144,7 @@ function draw() {
     grassEaterArr[i].mul()
     grassEaterArr[i].eat()
   }
- 
+
   for (let i in flowerArr) {
     if (grassEaterArr.length < 5 && predatorArr.length == 0) {
       flowerArr[i].test(side)
@@ -131,6 +153,3 @@ function draw() {
   }
 
 }
-
-
-
