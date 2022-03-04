@@ -52,9 +52,9 @@ function generator(matLen, gr, grEat, pr, fl, allEat, mush, wall) {
     }
   }
   let x = 0
-  let y = Math.floor(Math.random() * matLen); 
+  let y = Math.floor(Math.random() * matLen);
   for (let i = 0; i < wall; i++) {
-    x++    
+    x++
     if (matrix[x][y] == 0) {
       matrix[x][y] = 7;
     }
@@ -126,10 +126,12 @@ function draw() {
     }
   }
 
+  setTimeout(function () {
+    for (let i in grassArr) {
+      grassArr[i].mul()
+    }
+  }, 1000)
 
-  for (let i in grassArr) {
-    grassArr[i].mul()
-  }
   for (let i in allEaterArr) {
     if (grassArr.length > 200) {
       allEaterArr[i].moveAndEat(side)
@@ -140,6 +142,7 @@ function draw() {
     predatorArr[i].mul()
     predatorArr[i].eat()
   }
+
   for (let i in grassEaterArr) {
     grassEaterArr[i].mul()
     grassEaterArr[i].eat()
@@ -152,4 +155,16 @@ function draw() {
 
   }
 
+}
+
+function mouseClicked() {
+  if (mouseX < 400 && mouseY > 1 && mouseY < 400 && mouseX > 1) {
+    matrix = [];
+    grassArr = []
+    grassEaterArr = []
+    predatorArr = []
+    flowerArr = []
+    allEaterArr = []
+    mushroomArr = []
+  }
 }

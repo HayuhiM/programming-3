@@ -3,6 +3,11 @@ class GrassEater extends LivingCreature {
     constructor(x, y) {
         super(x, y);
         this.energy = 8;
+        if (Math.random() < 0.5) {
+            this.isMale = true
+        } else {
+            this.isMale = false
+        }
     }
     getNewCoordinates() {
         this.directions = [
@@ -21,18 +26,20 @@ class GrassEater extends LivingCreature {
         return super.chooseCell(character);
     }
     mul() {
-        this.multiply++;
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        if (!this.isMale) {
+            this.multiply++;
+            var emptyCells = this.chooseCell(0);
+            var newCell = random(emptyCells);
 
-        if (newCell && this.multiply >= 15) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-            matrix[newY][newX] = 2;
+            if (newCell && this.multiply >= 15) {
+                var newX = newCell[0];
+                var newY = newCell[1];
+                matrix[newY][newX] = 2;
 
-            var newGr = new GrassEater(newX, newY);
-            grassEaterArr.push(newGr);
-            this.multiply = 0;
+                var newGr = new GrassEater(newX, newY);
+                grassEaterArr.push(newGr);
+                this.multiply = 0;
+            }
         }
     }
 
@@ -40,7 +47,7 @@ class GrassEater extends LivingCreature {
         this.energy--
         var emptyCells = this.chooseCell(0);
         var newCell = random(emptyCells);
-        if(newCell && this.energy >= 0) {
+        if (newCell && this.energy >= 0) {
             var newX = newCell[0];
             var newY = newCell[1];
             matrix[newY][newX] = matrix[this.y][this.x]
@@ -48,7 +55,7 @@ class GrassEater extends LivingCreature {
             this.x = newX
             this.y = newY
         } else {
-            if(this.energy < 0) {
+            if (this.energy < 0) {
                 this.die()
             }
         }
@@ -61,9 +68,9 @@ class GrassEater extends LivingCreature {
         var newCellfl = random(emptyCellsfl);
         var emptyCellsmush = this.chooseCell(6);
         var newCellmush = random(emptyCellsmush);
-        
-        if(newCellmush){
-            this.energy+=3
+
+        if (newCellmush) {
+            this.energy += 3
             var newX = newCellmush[0];
             var newY = newCellmush[1];
             matrix[newY][newX] = matrix[this.y][this.x]
@@ -76,7 +83,7 @@ class GrassEater extends LivingCreature {
                     break;
                 }
             }
-        }else if(newCellfl) {
+        } else if (newCellfl) {
             var newX = newCellfl[0];
             var newY = newCellfl[1];
             this.die()
@@ -84,7 +91,7 @@ class GrassEater extends LivingCreature {
             var newGr = new Predator(this.x, this.y);
             predatorArr.push(newGr);
 
-        }else if(newCell) {
+        } else if (newCell) {
             this.energy++
             var newX = newCell[0];
             var newY = newCell[1];

@@ -2,6 +2,11 @@ class Predator extends LivingCreature {
     constructor(x, y) {
         super(x, y)
         this.energy = 10
+        if (Math.random() < 0.5) {
+            this.isMale = true
+        } else {
+            this.isMale = false
+        }
     }
 
     getNewCoordinates() {
@@ -23,18 +28,20 @@ class Predator extends LivingCreature {
     }
 
     mul() {
-        this.multiply++;
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        if (!this.isMale) {
+            this.multiply++;
+            var emptyCells = this.chooseCell(0);
+            var newCell = random(emptyCells);
 
-        if (newCell && this.multiply >= 15) {
-            var newX = newCell[0];
-            var newY = newCell[1];
-            matrix[newY][newX] = 3;
+            if (newCell && this.multiply >= 15) {
+                var newX = newCell[0];
+                var newY = newCell[1];
+                matrix[newY][newX] = 3;
 
-            var newPr = new Predator(newX, newY);
-            predatorArr.push(newPr);
-            this.multiply = 0;
+                var newPr = new Predator(newX, newY);
+                predatorArr.push(newPr);
+                this.multiply = 0;
+            }
         }
     }
 
@@ -61,9 +68,9 @@ class Predator extends LivingCreature {
         var newCell = random(emptyCells);
         var emptyCellsmush = this.chooseCell(6);
         var newCellmush = random(emptyCellsmush);
-        if(newCellmush){
+        if (newCellmush) {
             this.die()
-        }else if (newCell) {
+        } else if (newCell) {
             this.energy++
             var newX = newCell[0];
             var newY = newCell[1];
