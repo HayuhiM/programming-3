@@ -7,8 +7,12 @@
     <title>Document</title>
 </head>
 <body>
+    <br/> <br/>
+    <button onclick="winter()" style="background-color: #648DBF">Winter</button>
+    <button onclick="summer()" style="background-color: #FEE887">Summer</button>
+    <br/> <br/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js"></script> 
     <script src="livingCreature.js"></script>
     <script src="flower.js"></script>
     <script src="grass.js"></script>
@@ -16,6 +20,73 @@
     <script src="allEater.js"></script>
     <script src="predator.js"></script>
     <script src="mushroom.js"></script>
+    <script src="fire.js"></script>
+
+    <table style=" border-collapse: collapse" align="right" width="940">
+        <tr align="center">
+            <th style="border: 1px solid black">color</th>
+            <th style="border: 1px solid black">name</th>    
+            <th style="border: 1px solid black">move</th>
+            <th style="border: 1px solid black">eat</th>
+            <th style="border: 1px solid black">multiply</th>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#A9A9A9", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Emty cell</td>
+            <td style="border: 1px solid black"></td>
+            <td style="border: 1px solid black"></td>
+            <td style="border: 1px solid black"></td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#008000", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Grass</td>
+            <td style="border: 1px solid black">In the nearest 8 cells</td>
+            <td style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Multiply once in 3 frames</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#FFD700", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">GrassEater</td>
+            <td style="border: 1px solid black">In the nearest 8 cells</td>
+            <td style="border: 1px solid black">Grass</td>
+            <td style="border: 1px solid black">Multiply when energy is 15+</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#E95D53", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Predator</td>
+            <td style="border: 1px solid black">In the nearest 8 cells</td>
+            <td style="border: 1px solid black">GrassEater</td>
+            <td style="border: 1px solid black">Multiply when energy is 15+</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#DA70D6", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Flower</td>
+            <td style="border: 1px solid black">Doesn't move</td>
+            <td style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">No multiply</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#BB196A", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">AllEater</td>
+            <td style="border: 1px solid black">Only to the right</td>
+            <td style="border: 1px solid black">All creatures</td>
+            <td style="border: 1px solid black">No multiply</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#B86E29", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Mushroom</td>
+            <td style="border: 1px solid black">Doesn't move</td>
+            <td style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">No multiply</td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#000000", style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">Wall</td>
+            <td style="border: 1px solid black">Doesn't move</td>
+            <td style="border: 1px solid black"></td>
+            <td style="border: 1px solid black">No multiply</td>
+        </tr>
+    </table>
     
 </body>
 </html>

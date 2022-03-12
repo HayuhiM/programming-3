@@ -1,7 +1,6 @@
 {
   "name": "new",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +16,17 @@
   },
   "homepage": "https://github.com/HayuhiM/programming-3#readme",
   "dependencies": {
-    "express": "^4.17.3"
-  }
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "express": "^4.17.3",
+    "express.js": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11"
+  },
+  "keywords": [],
+  "description": ""
 }

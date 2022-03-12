@@ -8,7 +8,6 @@ function generator(matLen, gr, grEat, pr, fl, allEat, mush, wall) {
     }
   }
 
-
   for (let i = 0; i < gr; i++) {
     let x = Math.floor(Math.random() * matLen);
     let y = Math.floor(Math.random() * matLen);
@@ -71,6 +70,7 @@ let predatorArr = []
 let flowerArr = []
 let allEaterArr = []
 let mushroomArr = []
+let fireArr = []
 
 function setup() {
   createCanvas(matrix[0].length * side, matrix.length * side);
@@ -106,21 +106,23 @@ function draw() {
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       if (matrix[y][x] == 1) {
-        fill('green')
+        fill(colorGr)
       } else if (matrix[y][x] == 0) {
-        fill('darkGray')
+        fill(colorCanvas)
       } else if (matrix[y][x] == 2) {
-        fill('gold')
+        fill(colorGrEat)
       } else if (matrix[y][x] == 3) {
-        fill('#ff3333')
+        fill(colorPr)
       } else if (matrix[y][x] == 4) {
-        fill('orchid')
+        fill(colorFl)
       } else if (matrix[y][x] == 5) {
-        fill('Teal')
+        fill(colorAllEat)
       } else if (matrix[y][x] == 6) {
-        fill('LightSalmon')
+        fill(colorMush)
       } else if (matrix[y][x] == 7) {
-        fill('black')
+        fill(colorWall)
+      } else if (matrix[y][x] == 8) {
+        fill('red')
       }
       rect(x * side, y * side, side, side)
     }
@@ -136,7 +138,6 @@ function draw() {
     if (grassArr.length > 200) {
       allEaterArr[i].moveAndEat(side)
     }
-
   }
   for (let i in predatorArr) {
     predatorArr[i].mul()
@@ -147,24 +148,57 @@ function draw() {
     grassEaterArr[i].mul()
     grassEaterArr[i].eat()
   }
+  for (let i in fireArr) {
+    fireArr[i].mul()
+  }
 
   for (let i in flowerArr) {
     if (grassEaterArr.length < 5 && predatorArr.length == 0) {
       flowerArr[i].test(side)
     }
-
   }
-
 }
 
 function mouseClicked() {
-  if (mouseX < 400 && mouseY > 1 && mouseY < 400 && mouseX > 1) {
-    matrix = [];
-    grassArr = []
-    grassEaterArr = []
-    predatorArr = []
-    flowerArr = []
-    allEaterArr = []
-    mushroomArr = []
+  if (mouseX < 400 && mouseY > 1 && mouseY < 400 && mouseX > 1 && !iswinter) {
+    var isTrue = true
+    while (isTrue) {
+      let x = Math.floor(Math.random() * side);
+      let y = Math.floor(Math.random() * side);
+      if (matrix[y][x] == 1) {
+        matrix[y][x] = 8;
+        var newfr = new Fire(x, y);
+        fireArr.push(newfr);
+        
+        isTrue = false
+      }
+    }
   }
+}
+summer()
+
+function winter(){
+  iswinter=true
+  console.log("Winter")
+  colorGr = '#0B8745'
+  colorCanvas = '#B6CED2'
+  colorGrEat = '#F5DD59'
+  colorPr = '#E38C86'
+  colorFl = '#D88FE2'
+  colorAllEat = '#CF418A'
+  colorMush = '#C39264'
+  colorWall = '#2D2E32'
+}
+
+function summer(){
+iswinter = false
+console.log("Summer")
+colorGr = '#008000'
+colorCanvas = '#A9A9A9'
+colorGrEat = '#FFD700'
+colorPr = '#E95D53'
+colorFl = '#DA70D6'
+colorAllEat = '#BB196A'
+colorMush = '#B86E29'
+colorWall = '#000000'
 }
